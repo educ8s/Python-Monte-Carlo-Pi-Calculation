@@ -1,11 +1,10 @@
-import math, random, pygame
+import random, pygame
 from sys import exit
 
 class MonteCarlo:
 
     def __init__(self, window, circle_radius, points):
         pygame.init()
-        print(f"The simulation will run for {points} iterations")
         self.screen = pygame.display.set_mode((window[0], window[1]), pygame.FULLSCREEN)
         self.screen.fill("Grey10")
         pygame.display.set_caption("Monte Carlo Pi Estimation")
@@ -83,12 +82,12 @@ class MonteCarlo:
             self.display_pi()
             pygame.display.update()
 
-    def generatePoint(self):
+    def generate_point(self):
         x = random.randint(0, self.width)
         y = random.randint(0, self.height)
         return (x,y)
 
-    def isPointInCircle(self,point):
+    def is_point_in_circle(self,point):
         x = point[0] - self.width/2
         y = point[1] - self.width/2
         if x * x + y * y <= (self.width/2) * (self.height/2):
@@ -96,23 +95,23 @@ class MonteCarlo:
         else:
             return False
 
-    def calculatePi(self):
+    def calculate_pi(self):
         self.pi = round(4*(self.points_inside/self.total_points),8)
 
     def draw(self,point):
         circle_surface= pygame.Surface((2,2))
-        if self.isPointInCircle(point):
+        if self.is_point_in_circle(point):
             circle_surface.fill((224,72,52)) #Red color
         else:
             circle_surface.fill((0,90,145))  #Blue color
         self.screen.blit(circle_surface,(((self.window[0]-self.width)/2)+point[0],100+point[1]) )
         
     def calculate(self):
-        point = self.generatePoint()
+        point = self.generate_point()
         self.total_points += 1
-        if self.isPointInCircle(point):
+        if self.is_point_in_circle(point):
             self.points_inside += 1
-        self.calculatePi()
+        self.calculate_pi()
         self.draw(point)
         self.display_number_of_red()
         self.display_total_number()
