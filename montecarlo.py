@@ -14,11 +14,11 @@ class MonteCarlo:
         self.font_small = pygame.font.Font(None, 40)
         self.width = circle_radius*2
         self.height = circle_radius*2
-        self.pi = 0.0
-        self.inside = 0
-        self.window = window
         self.points = points
-        self.points_list = []
+        self.points_inside = 0
+        self.total_points = 0
+        self.pi = 0.0
+        self.window = window
         self.display_title()
         self.display_square(circle_radius)
         self.draw_line()
@@ -36,7 +36,7 @@ class MonteCarlo:
         subtitle_rect = subtitle.get_rect(center = (930, 830))
         subtitle.fill("Grey10")
         self.screen.blit(subtitle,subtitle_rect)
-        subtitle = self.font_small.render(str(self.inside), True, (224,72,52))
+        subtitle = self.font_small.render(str(self.points_inside), True, (224,72,52))
         self.screen.blit(subtitle,subtitle_rect)
 
     def display_total_number(self):
@@ -44,7 +44,7 @@ class MonteCarlo:
         subtitle_rect = subtitle.get_rect(center = (930, 870))
         subtitle.fill("Grey10")
         self.screen.blit(subtitle,subtitle_rect)
-        subtitle = self.font_small.render(str(len(self.points_list)), True, "White")
+        subtitle = self.font_small.render(str(self.total_points), True, "White")
         self.screen.blit(subtitle,subtitle_rect)
 
     def display_square(self, circle_radius):
@@ -56,7 +56,6 @@ class MonteCarlo:
         self.screen.blit(mult,mult_rect)
 
     def draw_line(self):
-        print("Drawing line...")
         line = pygame.draw.line(self.screen, "White", (800,850), (1000,850), 2)
 
     def display_pi(self):
@@ -78,7 +77,7 @@ class MonteCarlo:
                     if event.key == pygame.K_ESCAPE:
                         pygame.quit()
                         exit()
-            if len(self.points_list) < self.points:
+            if self.total_points < self.points:
                     self.calculate()
 
             self.display_pi()
@@ -98,7 +97,7 @@ class MonteCarlo:
             return False
 
     def calculatePi(self):
-        self.pi = round(4*(self.inside/len(self.points_list)),8)
+        self.pi = round(4*(self.points_inside/self.total_points),8)
 
     def draw(self,point):
         circle_surface= pygame.Surface((2,2))
@@ -110,9 +109,9 @@ class MonteCarlo:
         
     def calculate(self):
         point = self.generatePoint()
-        self.points_list.append(point)
+        self.total_points += 1
         if self.isPointInCircle(point):
-            self.inside += 1
+            self.points_inside += 1
         self.calculatePi()
         self.draw(point)
         self.display_number_of_red()
