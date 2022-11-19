@@ -16,6 +16,6 @@ Consider drawing random dots inside a square. Is it possible to estimate Pi, a s
 <br>
 <br>
 <p align="center">
-| 📺 <a href="https://www.youtube.com/channel/UC3ivOTE5EgpmF2DHLBmWIWg">YouTube</a>
-| 🌍 <a href="http://www.educ8s.tv">Website</a> | <br>
+| 📺 <a href="https://www.youtube.com/channel/UC3ivOTE5EgpmF2DHLBmWIWg">My YouTube Channel</a>
+| 🌍 <a href="http://www.educ8s.tv">My Website</a> | <br>
 </p>
